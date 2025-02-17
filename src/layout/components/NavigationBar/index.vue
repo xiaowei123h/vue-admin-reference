@@ -51,7 +51,7 @@ function logout() {
         </div>
         <template #dropdown>
           <el-dropdown-menu>
-            <a target="_blank" href="https://github.com/xiaowei123h/vue-base-reference.git">
+            <a target="_blank" href="https://github.com/xiaowei123h/vue-admin-reference.git">
               <el-dropdown-item>GitHub</el-dropdown-item>
             </a>
             <!-- <a target="_blank" href="">
