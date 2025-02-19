@@ -96,7 +96,7 @@ export default defineConfig({
           { text: 'GitHub Pages', link: '/deploy/github-pages' },
           { text: 'Vercel', link: '/deploy/vercel' },
           { text: 'Cloudflare Pages', link: '/deploy/cloudflare-pages' },
-          { text: 'Netlify', link: '/deploy/netlify' }
+          { text: 'Netlify（推荐）', link: '/deploy/netlify' }
         ]
       },
       {
