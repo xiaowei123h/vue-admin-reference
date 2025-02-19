@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from "vue-router"
 
 const Layout = () => import('@/layout/index.vue')
@@ -75,7 +75,7 @@ export const dynamicRoutes: RouteRecordRaw[] = [
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes: constantRoutes,
   // 页面滚动行为
   scrollBehavior(to, from, savedPosition) {
