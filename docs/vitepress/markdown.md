@@ -18,11 +18,11 @@
 ::: code-group
 
 ```sh [npm]
-$ npx vitepress dev docs
+npx vitepress dev docs
 ```
 
 ```sh [pnpm]
-$ pnpm vitepress dev docs
+pnpm vitepress dev docs
 ```
 :::
 ````

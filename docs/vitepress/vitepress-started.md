@@ -9,23 +9,23 @@ VitePress 可以单独使用，也可以安装到现有项目中。在这两种�
 ::: code-group
 
 ```sh [npm]
-$ npm add -D vitepress
+npm add -D vitepress
 ```
 
 ```sh [pnpm]
-$ pnpm add -D vitepress
+pnpm add -D vitepress
 ```
 
 ```sh [yarn]
-$ yarn add -D vitepress
+yarn add -D vitepress
 ```
 
 ```sh [yarn (pnp)]
-$ yarn add -D vitepress vue
+yarn add -D vitepress vue
 ```
 
 ```sh [bun]
-$ bun add -D vitepress
+bun add -D vitepress
 ```
 
 :::
@@ -35,19 +35,19 @@ $ bun add -D vitepress
 ::: code-group
 
 ```sh [npm]
-$ npx vitepress init
+npx vitepress init
 ```
 
 ```sh [pnpm]
-$ pnpm vitepress init
+pnpm vitepress init
 ```
 
 ```sh [yarn]
-$ yarn vitepress init
+yarn vitepress init
 ```
 
 ```sh [bun]
-$ bun vitepress init
+bun vitepress init
 ```
 
 :::
@@ -72,19 +72,19 @@ $ bun vitepress init
 ::: code-group
 
 ```sh [npm]
-$ npm run docs:dev
+npm run docs:dev
 ```
 
 ```sh [pnpm]
-$ pnpm run docs:dev
+pnpm run docs:dev
 ```
 
 ```sh [yarn]
-$ yarn docs:dev
+yarn docs:dev
 ```
 
 ```sh [bun]
-$ bun run docs:dev
+bun run docs:dev
 ```
 
 :::
@@ -94,19 +94,19 @@ $ bun run docs:dev
 ::: code-group
 
 ```sh [npm]
-$ npx vitepress dev docs
+npx vitepress dev docs
 ```
 
 ```sh [pnpm]
-$ pnpm vitepress dev docs
+pnpm vitepress dev docs
 ```
 
 ```sh [yarn]
-$ yarn vitepress dev docs
+yarn vitepress dev docs
 ```
 
 ```sh [bun]
-$ bun vitepress dev docs
+bun vitepress dev docs
 ```
 
 :::
@@ -159,11 +159,11 @@ export default {
 可以运行以下命令来构建文档：
 
 ```sh
-$ npm run docs:build
+npm run docs:build
 ```
 
 构建文档后，通过运行以下命令可以在本地预览它：
 
 ```sh
-$ npm run docs:preview
+npm run docs:preview
 ```

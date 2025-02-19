@@ -103,7 +103,7 @@ export default defineConfig({
         collapsed: true,
         items: [
           { text: '使用', link: '/icon/icon-started' },
-          // { text: 'Vercel', link: '/deploy/vercel' },
+          { text: 'SVG组件管理插件', link: '/icon/unplugin-svg-component' },
           // { text: 'Cloudflare Pages', link: '/deploy/cloudflare-pages' }
         ]
       },
