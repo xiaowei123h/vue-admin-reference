@@ -53,6 +53,14 @@ export default defineConfig({
             text: 'Element plus',
             link: 'https://cn.element-plus.org/zh-CN/'
           },
+          {
+            text: 'Vercel官网',
+            link: 'https://vercel.com/'
+          },
+          {
+            text: 'cloudflare官网',
+            link: 'https://www.cloudflare-cn.com/'
+          },
         ]
       }
     ],
@@ -62,14 +70,14 @@ export default defineConfig({
         text: '开始',
         collapsed: false,
         items: [
-          { text: '简介', link: '/markdown-examples' }
+          { text: '简介', link: '/introduce' }
         ]
       },
       {
         text: 'VitePress',
         collapsed: false,
         items: [
-          { text: '快速开始', link: '/vitepress/started' },
+          { text: '使用', link: '/vitepress/vitepress-started' },
           { text: 'Markdown扩展', link: '/vitepress/markdown' }
         ]
       },
@@ -86,7 +94,17 @@ export default defineConfig({
         collapsed: true,
         items: [
           { text: 'GitHub Pages', link: '/deploy/github-pages' },
-          // { text: 'Markdown扩展', link: '/vitepress/markdown' }
+          { text: 'Vercel', link: '/deploy/vercel' },
+          { text: 'Cloudflare Pages', link: '/deploy/cloudflare-pages' }
+        ]
+      },
+      {
+        text: 'Icon',
+        collapsed: true,
+        items: [
+          { text: '使用', link: '/icon/icon-started' },
+          // { text: 'Vercel', link: '/deploy/vercel' },
+          // { text: 'Cloudflare Pages', link: '/deploy/cloudflare-pages' }
         ]
       },
     ],
@@ -99,6 +117,13 @@ export default defineConfig({
     outline: {
       label: '页面导航'
     },
+
+    sidebarMenuLabel: '菜单',
+    darkModeSwitchLabel: '主题',
+    lightModeSwitchTitle: '切换到浅色模式',
+    darkModeSwitchTitle: '切换到深色模式',
+    skipToContentLabel: '跳转到内容',
+    returnToTopLabel: '回到顶部',
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/xiaowei123h/vue-admin-reference.git' }
