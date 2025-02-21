@@ -47,30 +47,24 @@ npm run deploy
 
 需要设置（.env.production）
 ```[.env.production]
-
 VITE_PUBLIC_PATH = /项目名/
-
 ```
 
 （vite.config.js/vite.config.ts）
 ```[vite.config.js]
-
 export default defineConfig(({mode}) => {
   return {
     // 开发或打包时用到的公共基础路径
     base: VITE_PUBLIC_PATH,
   }
 })
-
 ```
 
 （router/index.js / router/index.ts）
 ```[index.js]
-
 import { createWebHashHistory } from 'vue-router'
 
 const router = createRouter({
   history: createWebHashHistory()
 })
-
 ```

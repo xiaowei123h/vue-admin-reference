@@ -25,7 +25,6 @@ yarn add unplugin-svg-component -D
 **配置插件**
 （vite.config.js/vite.config.ts）
 ```[vite.config.js]
-
 // 这是 Node.js 的 path 模块中的一个方法，用于将路径或路径片段解析为绝对路径。
 import { resolve } from "node:path"
 import SvgComponent from "unplugin-svg-component/vite"
@@ -43,27 +42,22 @@ export default defineConfig({
     }),
   ],
 })
-
 ```
 
 **全局注册**
 （main.js/main.ts）
 ```[main.js]
-
 import SvgIcon from "~virtual/svg-component"
 
 // 注册 SvgIcon 组件
 app.component("SvgIcon", SvgIcon)
-
 ```
 
 **使用**
 （.vue）
 ```[vue]
-
 <!-- keyboard-down.svg 已存在于src/assets/icons目录中 -->
 <SvgIcon name="keyboard-down" />
-
 ```
 
 **TS注意事项**
@@ -71,7 +65,5 @@ app.component("SvgIcon", SvgIcon)
 安装@types/node解决node:path报错
 
 ```sh [npm]
-
 npm install @types/node -D
-
 ```

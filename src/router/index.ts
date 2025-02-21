@@ -22,6 +22,55 @@ export const constantRoutes: RouteRecordRaw[] = [
     ]
   },
   {
+    path: '/element',
+    component: Layout,
+    meta: {
+      title: 'Element Plus',
+      elIcon: "Eleme",
+      alwaysShow: true,
+    },
+    children: [
+      {
+        path: "element-table",
+        component: () => import("@/views/elementPlus/elementTable.vue"),
+        name: "ElementTable",
+        meta: {
+          title: "Table表格",
+          svgIcon: "table",
+        }
+      }
+    ]
+  },
+  {
+    path: '/plugin',
+    component: Layout,
+    meta: {
+      title: '插件示例',
+      svgIcon: "plugin",
+      alwaysShow: true,
+    },
+    children: [
+      {
+        path: "plugin-watermark",
+        component: () => import("@/views/plugin/watermark.vue"),
+        name: "watermark",
+        meta: {
+          title: "水印",
+          svgIcon: "watermark",
+        }
+      },
+      {
+        path: "plugin-barcode",
+        component: () => import("@/views/plugin/barcode.vue"),
+        name: "barcode",
+        meta: {
+          title: "条形码",
+          svgIcon: "barcode",
+        }
+      }
+    ]
+  },
+  {
     path: '/login',
     component: () => import('@/views/login.vue'),
     name: 'Login',
@@ -47,26 +96,28 @@ export const dynamicRoutes: RouteRecordRaw[] = [
     name: 'permission',
     meta: {
       title: '权限',
-      elIcon: "DataBoard",
+      svgIcon: "permission",
       alwaysShow: true,
       roles: ['admin', 'some']
     },
     children: [
       {
         path: 'permission-first',
-        component: () => import('@/views/permissionFirst.vue'),
+        component: () => import('@/views/permission/permissionFirst.vue'),
         name: 'permissionFirst',
         meta: {
           title: '权限子菜单一',
+          svgIcon: "admin",
           roles: ['admin']
         }
       },
       {
         path: 'permission-second',
-        component: () => import('@/views/permissionSecond.vue'),
+        component: () => import('@/views/permission/permissionSecond.vue'),
         name: 'permissionSecond',
         meta: {
           title: '权限子菜单二',
+          svgIcon: "admin",
           roles: ['admin']
         }
       }

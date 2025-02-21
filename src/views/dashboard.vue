@@ -3,17 +3,14 @@
 </script>
 
 <template>
-  <div class="app-container">
+  <div class="app-container flex-c">
     <img src="@/assets/images/welcome.png" class="welcome">
   </div>
 </template>
 
 <style scoped>
 .app-container {
-  display: flex;
-  justify-content: center;
   flex-direction: column;
-  align-items: center;
 }
 .welcome {
   width: 900px;

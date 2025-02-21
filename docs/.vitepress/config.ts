@@ -61,6 +61,10 @@ export default defineConfig({
             text: 'cloudflare官网',
             link: 'https://www.cloudflare-cn.com/'
           },
+          {
+            text: '稀土掘金',
+            link: 'https://juejin.cn/user/3639844967033508'
+          },
         ]
       }
     ],
@@ -105,7 +109,50 @@ export default defineConfig({
         items: [
           { text: '使用', link: '/icon/icon-started' },
           { text: 'SVG组件管理插件', link: '/icon/unplugin-svg-component' },
-          // { text: 'Cloudflare Pages', link: '/deploy/cloudflare-pages' }
+        ]
+      },
+      {
+        text: 'CSS样式',
+        collapsed: true,
+        items: [
+          { text: 'UnoCSS', link: '/css/unocss' },
+        ]
+      },
+      {
+        text: 'Element Plus',
+        collapsed: true,
+        items: [
+          { text: '细节', link: '/element/element-details' },
+          { text: 'Table Demo', link: '/element/table-demo' },
+        ]
+      },
+      {
+        text: '插件示例',
+        collapsed: true,
+        items: [
+          { text: '水印', link: '/plugin/plugin-watermark' },
+          { text: '条形码', link: '/plugin/plugin-barcode' },
+        ]
+      },
+      {
+        text: 'Vue',
+        collapsed: true,
+        items: [
+          { text: 'v-permission', link: '/vue/v-permission' },
+        ]
+      },
+      {
+        text: 'TS',
+        collapsed: true,
+        items: [
+          { text: '细节', link: '/ts/ts-details' },
+        ]
+      },
+      {
+        text: '请求',
+        collapsed: true,
+        items: [
+          { text: '细节', link: '/request/request-details' },
         ]
       },
     ],
