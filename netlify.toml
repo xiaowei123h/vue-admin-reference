@@ -1,0 +1,9 @@
+[build]
+  base = "/"
+  publish = "dist"  # Vue项目的构建输出目录
+  command = "npm run build"  # 构建Vue项目的命令
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
