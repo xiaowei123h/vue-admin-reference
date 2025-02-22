@@ -1,9 +1,0 @@
-[build]
-  base = "/docs/"
-  publish = "dist"  # Vitepress的构建输出目录
-  command = "npm run docs:build"  # 构建Vitepress的命令
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200

@@ -50,6 +50,9 @@ export default defineConfig(({mode}) => {
           changeOrigin: true
         }
       }
+    },
+    build: {
+      outDir: 'dist-vue' // 修改输出目录为dist-output
     }
   }
 })
