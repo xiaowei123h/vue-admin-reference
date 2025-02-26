@@ -15,7 +15,7 @@ export const constantRoutes: RouteRecordRaw[] = [
         name: "Dashboard",
         meta: {
           title: "首页",
-          svgIcon: "dashboard",
+          svgIcon: "dashboard1",
           affix: true
         }
       }
@@ -42,11 +42,11 @@ export const constantRoutes: RouteRecordRaw[] = [
     ]
   },
   {
-    path: '/plugin',
+    path: '/plugin-light',
     component: Layout,
     meta: {
-      title: '插件示例',
-      svgIcon: "plugin",
+      title: '轻量插件',
+      svgIcon: "plugin-light",
       alwaysShow: true,
     },
     children: [
@@ -65,9 +65,119 @@ export const constantRoutes: RouteRecordRaw[] = [
         name: "barcode",
         meta: {
           title: "条形码",
-          svgIcon: "barcode",
+          svgIcon: "barcodesvg",
         }
-      }
+      },
+      {
+        path: "plugin-excel",
+        component: () => import("@/views/plugin/excel.vue"),
+        name: "excel",
+        meta: {
+          title: "Excel导出",
+          svgIcon: "excel",
+        }
+      },
+      {
+        path: "plugin-typeit",
+        component: () => import("@/views/plugin/typeit.vue"),
+        name: "typeit",
+        meta: {
+          title: "打字机",
+          svgIcon: "typeit",
+        }
+      },
+      {
+        path: "plugin-markdown",
+        component: () => import("@/views/plugin/markdown.vue"),
+        name: "markdown",
+        meta: {
+          title: "MD编辑器",
+          svgIcon: "markdown",
+        }
+      },
+      {
+        path: "plugin-editor",
+        component: () => import("@/views/plugin/editor.vue"),
+        name: "editor",
+        meta: {
+          title: "富文本编辑器",
+          svgIcon: "editor",
+        }
+      },
+      {
+        path: "plugin-pdf",
+        component: () => import("@/views/plugin/pdf.vue"),
+        name: "pdf",
+        meta: {
+          title: "pdf在线预览",
+          svgIcon: "pdf",
+        }
+      },
+    ]
+  },
+  {
+    path: '/plugin',
+    component: Layout,
+    meta: {
+      title: '插件示例',
+      svgIcon: "plugin",
+      alwaysShow: true,
+    },
+    children: [
+      {
+        path: "plugin-antvg6",
+        component: () => import("@/views/plugin/antvg6.vue"),
+        name: "antvg6",
+        meta: {
+          title: "AntV G6",
+          svgIcon: "antv",
+        }
+      },
+      {
+        path: "plugin-echarts",
+        component: () => import("@/views/plugin/echarts.vue"),
+        name: "echarts",
+        meta: {
+          title: "Echarts",
+          svgIcon: "echarts",
+        }
+      },
+      {
+        path: "plugin-vchart",
+        component: () => import("@/views/plugin/vchart.vue"),
+        name: "vchart",
+        meta: {
+          title: "VChart",
+          svgIcon: "vcharts",
+        }
+      },
+      {
+        path: "plugin-dhtmlx",
+        component: () => import("@/views/plugin/dhtmlx.vue"),
+        name: "dhtmlx",
+        meta: {
+          title: "dhtmlx甘特图",
+          svgIcon: "dhtmlx",
+        }
+      },
+      {
+        path: "plugin-vtable",
+        component: () => import("@/views/plugin/vtable.vue"),
+        name: "vtable",
+        meta: {
+          title: "vtable甘特图",
+          svgIcon: "vtable",
+        }
+      },
+      {
+        path: "plugin-map",
+        component: () => import("@/views/plugin/map.vue"),
+        name: "map",
+        meta: {
+          title: "地图",
+          svgIcon: "map",
+        }
+      },
     ]
   },
   {

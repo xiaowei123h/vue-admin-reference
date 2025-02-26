@@ -15,7 +15,8 @@ const {
   showFooter,
   showScreenfull,
   showSearchMenu,
-  cacheTagsView
+  cacheTagsView,
+  showSettings
 } = storeToRefs(useSettingsStore())
 
 /** 定义 switch 设置项 */
@@ -26,6 +27,7 @@ const switchSettings = {
   "显示页脚": showFooter,
   "显示全屏按钮": showScreenfull,
   "显示搜索按钮": showSearchMenu,
+  "显示右侧设置按钮": showSettings,
   "是否缓存标签栏": cacheTagsView
 }
 

@@ -6,5 +6,4 @@
   from = "/*"
   to = "/index.html"
   status = 200
-
-  # 解决vue部署后子菜单报错，但是vitepress会冲突，保留方法以后再尝试
+  

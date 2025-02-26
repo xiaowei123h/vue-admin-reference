@@ -4,7 +4,7 @@ export const myPreset: Preset = {
   name: 'my-preset',
   rules: [
     // font-size
-    [/^f-([.\d]+)$/, ([_, num]) => ({ 'font-size': `${num}%` })],
+    [/^f-([.\d]+)$/, ([_, num]) => ({ 'font-size': `${num}px` })],
     // max-width min-w-10px max-h-100%
     [
       /^(min-w|max-w|min-h|max-h)-(\d+)(px|%|rem|em|vh|vw)$/,
@@ -131,6 +131,8 @@ export const myPreset: Preset = {
     ['box-shadow-3', { 'box-shadow': '-4px 0 8px 0 rgba(0, 0, 0, 0.2)' }],
     // el-card wrapper
     ['card-w', { 'border-radius': '8px', 'box-shadow': '0 1px 2px rgba(0, 0, 0, 0.05)' }],
+    // cursor
+    ['cursor-p', { 'cursor': 'pointer' }],
   ],
   shortcuts: {
     // box-shadow样式合集

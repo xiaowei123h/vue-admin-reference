@@ -8,6 +8,7 @@ import { UserFilled } from "@element-plus/icons-vue"
 import Screenfull from "@/components/Screenfull/index.vue"
 import SearchMenu from "@/components/SearchMenu/index.vue"
 import { Breadcrumb, Hamburger, Sidebar } from "../index.ts"
+import { RightPanel, Settings } from "@/layout/components"
 
 const { isMobile } = useDevice()
 const { isTop } = useLayoutMode()
@@ -44,6 +45,10 @@ function logout() {
     <div class="right-menu">
       <SearchMenu v-if="showSearchMenu" class="right-menu-item" />
       <Screenfull v-if="showScreenfull" class="right-menu-item" />
+      <!-- 设置面板 -->
+      <RightPanel>
+        <Settings />
+      </RightPanel>
       <el-dropdown>
         <div class="right-menu-item user">
           <el-avatar :icon="UserFilled" :src="userStore.avatar" :size="30" />
@@ -54,9 +59,9 @@ function logout() {
             <a target="_blank" href="https://github.com/xiaowei123h/vue-admin-reference.git">
               <el-dropdown-item>GitHub</el-dropdown-item>
             </a>
-            <!-- <a target="_blank" href="">
-              <el-dropdown-item>Gitee</el-dropdown-item>
-            </a> -->
+            <a target="_blank" href="https://docs-reference.netlify.app/">
+              <el-dropdown-item>中文文档</el-dropdown-item>
+            </a>
             <el-dropdown-item divided @click="logout">
               退出登录
             </el-dropdown-item>

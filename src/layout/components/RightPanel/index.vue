@@ -1,12 +1,20 @@
 <script lang="ts" setup>
 import { Setting } from "@element-plus/icons-vue"
+import { useSettingsStore } from "@/store/modules/settings.ts"
 import { ref } from 'vue'
 
+const settingsStore = useSettingsStore()
+const { showSettings } = storeToRefs(settingsStore)
 const show = ref(false)
 </script>
 
 <template>
-  <div class="handle-button" @click="show = true">
+  <div @click="show = true" class="m-l-7 cursor-p">
+    <el-icon :size="20">
+      <Setting />
+    </el-icon>
+  </div>
+  <div class="handle-button" @click="show = true" v-if="showSettings">
     <el-icon :size="24">
       <Setting />
     </el-icon>
