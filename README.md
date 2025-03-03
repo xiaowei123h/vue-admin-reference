@@ -31,4 +31,8 @@ npm i
 npm run dev
 ```
 
+## 纯净版
+
+仅含登录及路由权限的后台管理模板[vue-base-reference](https://github.com/xiaowei123h/vue-base-reference.git)
+
 
