@@ -1,5 +1,34 @@
 <div align="center">
-  <img alt="logo" width="120" height="120" src="./src/assets/images/logo.png">
+  <!-- <img alt="logo" width="120" height="120" src="/favicon.ico"> -->
   <h1>Vue Admin Reference</h1>
 </div>
+
+## 在线访问
+
+[vue admin reference](https://vue-admin-reference.netlify.app/)
+
+## 中文文档
+
+[vue admin reference中文文档](https://docs-reference.netlify.app/)
+
+## 使用
+
+**克隆项目**
+
+```
+git clone https://github.com/xiaowei123h/vue-admin-reference.git
+```
+
+**安装依赖**
+
+```
+npm i
+```
+
+**启动项目**
+
+```
+npm run dev
+```
+
 
