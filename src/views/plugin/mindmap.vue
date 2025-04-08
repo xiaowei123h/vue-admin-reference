@@ -2,7 +2,7 @@
 import mindmap from 'vue3-mindmap'
 import 'vue3-mindmap/dist/style.css'
 
-const data = [{
+let data = [{
   "name":"如何学习D3",
   "children": [
     {
