@@ -2,7 +2,9 @@
 import mindmap from 'vue3-mindmap'
 import 'vue3-mindmap/dist/style.css'
 
-let data = reactive([{
+let data = ref([])
+
+data.value = [{
   "name":"如何学习D3",
   "children": [
     {
@@ -19,7 +21,7 @@ let data = reactive([{
     },
     { "name":"进阶", "left": true },
   ]
-}])
+}]
 
 </script>
 
