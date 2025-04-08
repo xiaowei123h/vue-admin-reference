@@ -16,6 +16,8 @@ import { installPermissionDirective } from "@/common/permission-directive"
 import './permission'
 import 'virtual:uno.css'
 
+import * as THREE from 'three'
+
 const app = createApp(App)
 
 // 路由图标
@@ -30,6 +32,8 @@ installPermissionDirective(app)
 
 // 注册 SvgIcon 组件
 app.component("SvgIcon", SvgIcon)
+
+app.config.globalProperties.$THREE = THREE
 
 app.mount('#app')
 

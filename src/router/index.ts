@@ -113,6 +113,51 @@ export const constantRoutes: RouteRecordRaw[] = [
           svgIcon: "pdf",
         }
       },
+      {
+        path: "plugin-guide",
+        component: () => import("@/views/plugin/guide.vue"),
+        name: "guide",
+        meta: {
+          title: "引导页",
+          svgIcon: "guide",
+        }
+      },
+      {
+        path: "plugin-verify",
+        component: () => import("@/views/plugin/verify.vue"),
+        name: "verify",
+        meta: {
+          title: "图形验证码",
+          svgIcon: "verify",
+        }
+      },
+      // {
+      //   path: "plugin-draggable",
+      //   component: () => import("@/views/plugin/draggable.vue"),
+      //   name: "draggable",
+      //   meta: {
+      //     title: "拖拽",
+      //     svgIcon: "draggable",
+      //   }
+      // },
+      {
+        path: "plugin-mint",
+        component: () => import("@/views/plugin/mint.vue"),
+        name: "mint",
+        meta: {
+          title: "敏感词过滤",
+          svgIcon: "mint",
+        }
+      },
+      {
+        path: "plugin-pinyin",
+        component: () => import("@/views/plugin/pinyin.vue"),
+        name: "pinyin",
+        meta: {
+          title: "汉语拼音",
+          svgIcon: "pinyin",
+        }
+      },
     ]
   },
   {
@@ -176,6 +221,33 @@ export const constantRoutes: RouteRecordRaw[] = [
         meta: {
           title: "地图",
           svgIcon: "map",
+        }
+      },
+      {
+        path: "plugin-mindmap",
+        component: () => import("@/views/plugin/mindmap.vue"),
+        name: "mindmap",
+        meta: {
+          title: "思维导图",
+          svgIcon: "mindmap",
+        }
+      },
+      {
+        path: "plugin-formCreate",
+        component: () => import("@/views/plugin/formCreate.vue"),
+        name: "formCreate",
+        meta: {
+          title: "表单生成器",
+          svgIcon: "formCreate",
+        }
+      },
+      {
+        path: "plugin-threejs",
+        component: () => import("@/views/plugin/threejs.vue"),
+        name: "threejs",
+        meta: {
+          title: "Threejs",
+          svgIcon: "threejs",
         }
       },
     ]

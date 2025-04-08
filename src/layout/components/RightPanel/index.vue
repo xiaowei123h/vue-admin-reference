@@ -9,7 +9,7 @@ const show = ref(false)
 </script>
 
 <template>
-  <div @click="show = true" class="m-l-7 cursor-p">
+  <div @click="show = true" class="m-l-7 cursor-p layout-setting">
     <el-icon :size="20">
       <Setting />
     </el-icon>

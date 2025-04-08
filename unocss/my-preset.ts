@@ -133,7 +133,36 @@ export const myPreset: Preset = {
     ['card-w', { 'border-radius': '8px', 'box-shadow': '0 1px 2px rgba(0, 0, 0, 0.05)' }],
     // cursor
     ['cursor-p', { 'cursor': 'pointer' }],
+    // background-color
+    // 例子bg-255-0-0或bg-255-0-0-50
+    [
+      /^bg-(\d+)-(\d+)-(\d+)(?:-(\d+))?$/,
+      ([, r, g, b, a]) => {
+        // 确保 RGB 值在 0-255 范围内
+        const red = Math.min(255, parseInt(r))
+        const green = Math.min(255, parseInt(g))
+        const blue = Math.min(255, parseInt(b))
+        
+        // 如果有 alpha 值（0-1 范围）
+        if (a !== undefined) {
+          const alpha = Math.min(1, parseFloat(a) / 100) // 假设输入是 0-100
+          return { 
+            'background-color': `rgba(${red}, ${green}, ${blue}, ${alpha})` 
+          }
+        }
+        // 无 alpha 值
+        return { 
+          'background-color': `rgb(${red}, ${green}, ${blue})` 
+        }
+      }
+    ]
   ],
+  // 开发时允许扫描所有可能值
+  safelist: process.env.NODE_ENV === 'development' ? [
+    'bg-0-0-0',
+    'bg-255-255-255',
+    // 其他可能值...
+  ] : [],
   shortcuts: {
     // box-shadow样式合集
     // 简单垂直阴影

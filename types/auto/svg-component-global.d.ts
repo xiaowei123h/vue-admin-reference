@@ -9,18 +9,18 @@ declare module 'vue' {
   export interface GlobalComponents {
     SvgIcon: import("vue").DefineComponent<{
         name: {
-            type: import("vue").PropType<"admin" | "antv" | "barcodesvg" | "dashboard1" | "dhtmlx" | "echarts" | "editor" | "enter" | "excel" | "fullscreen-exit" | "fullscreen" | "keyboard-down" | "keyboard-enter" | "keyboard-esc" | "keyboard-up" | "map" | "markdown" | "pdf" | "permission" | "plugin-light" | "plugin" | "search" | "table" | "typeit" | "vcharts" | "vtable" | "watermark">;
+            type: import("vue").PropType<"admin" | "antv" | "barcodesvg" | "dashboard1" | "dhtmlx" | "draggable" | "echarts" | "editor" | "enter" | "excel" | "formCreate" | "fullscreen-exit" | "fullscreen" | "guide" | "keyboard-down" | "keyboard-enter" | "keyboard-esc" | "keyboard-up" | "map" | "markdown" | "mindmap" | "mint" | "pdf" | "permission" | "pinyin" | "plugin-light" | "plugin" | "search" | "table" | "threejs" | "typeit" | "vcharts" | "verify" | "vtable" | "watermark">;
             default: string;
             required: true;
         };
     }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
         name: {
-            type: import("vue").PropType<"admin" | "antv" | "barcodesvg" | "dashboard1" | "dhtmlx" | "echarts" | "editor" | "enter" | "excel" | "fullscreen-exit" | "fullscreen" | "keyboard-down" | "keyboard-enter" | "keyboard-esc" | "keyboard-up" | "map" | "markdown" | "pdf" | "permission" | "plugin-light" | "plugin" | "search" | "table" | "typeit" | "vcharts" | "vtable" | "watermark">;
+            type: import("vue").PropType<"admin" | "antv" | "barcodesvg" | "dashboard1" | "dhtmlx" | "draggable" | "echarts" | "editor" | "enter" | "excel" | "formCreate" | "fullscreen-exit" | "fullscreen" | "guide" | "keyboard-down" | "keyboard-enter" | "keyboard-esc" | "keyboard-up" | "map" | "markdown" | "mindmap" | "mint" | "pdf" | "permission" | "pinyin" | "plugin-light" | "plugin" | "search" | "table" | "threejs" | "typeit" | "vcharts" | "verify" | "vtable" | "watermark">;
             default: string;
             required: true;
         };
     }>>, {
-        name: "admin" | "antv" | "barcodesvg" | "dashboard1" | "dhtmlx" | "echarts" | "editor" | "enter" | "excel" | "fullscreen-exit" | "fullscreen" | "keyboard-down" | "keyboard-enter" | "keyboard-esc" | "keyboard-up" | "map" | "markdown" | "pdf" | "permission" | "plugin-light" | "plugin" | "search" | "table" | "typeit" | "vcharts" | "vtable" | "watermark";
+        name: "admin" | "antv" | "barcodesvg" | "dashboard1" | "dhtmlx" | "draggable" | "echarts" | "editor" | "enter" | "excel" | "formCreate" | "fullscreen-exit" | "fullscreen" | "guide" | "keyboard-down" | "keyboard-enter" | "keyboard-esc" | "keyboard-up" | "map" | "markdown" | "mindmap" | "mint" | "pdf" | "permission" | "pinyin" | "plugin-light" | "plugin" | "search" | "table" | "threejs" | "typeit" | "vcharts" | "verify" | "vtable" | "watermark";
     }>;
   }
 }

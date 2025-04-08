@@ -43,8 +43,8 @@ function logout() {
     <Breadcrumb v-if="!isTop || isMobile" class="breadcrumb" />
     <Sidebar v-if="isTop && !isMobile" class="sidebar" />
     <div class="right-menu">
-      <SearchMenu v-if="showSearchMenu" class="right-menu-item" />
-      <Screenfull v-if="showScreenfull" class="right-menu-item" />
+      <SearchMenu v-if="showSearchMenu" class="right-menu-item search-menu" />
+      <Screenfull v-if="showScreenfull" class="right-menu-item screen-full" />
       <!-- 设置面板 -->
       <RightPanel>
         <Settings />
