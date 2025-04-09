@@ -1,13 +1,10 @@
 <script lang="ts" setup>
 import Stats from 'three/examples/jsm/libs/stats.module.js'
 import { onWindowResize, statsPosition } from '@/utils/common.js'
-import { getCurrentInstance } from 'vue'
+import * as THREE from 'three'
 
 // 获取当前实例
 const app = getCurrentInstance()
-
-// 通过 app 访问全局属性
-const THREE = app?.appContext.config.globalProperties.$THREE
 
 let webglInnerWidth = null
 
