@@ -51,6 +51,15 @@ export const constantRoutes: RouteRecordRaw[] = [
     },
     children: [
       {
+        path: "plugin-Numerology",
+        component: () => import("@/views/plugin/Numerology.vue"),
+        name: "Numerology",
+        meta: {
+          title: "八字测算",
+          svgIcon: "Numerology",
+        }
+      },
+      {
         path: "plugin-watermark",
         component: () => import("@/views/plugin/watermark.vue"),
         name: "watermark",

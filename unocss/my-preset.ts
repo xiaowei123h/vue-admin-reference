@@ -5,6 +5,10 @@ export const myPreset: Preset = {
   rules: [
     // font-size
     [/^f-([.\d]+)$/, ([_, num]) => ({ 'font-size': `${num}px` })],
+    // f-w -> font-weight: bold
+    ['f-w', { 'font-weight': 'bold' }],
+    // f-w-{number} -> font-weight: {number}
+    [/^f-w-(\d+)$/, ([, d]) => ({ 'font-weight': `${d}` })],
     // max-width min-w-10px max-h-100%
     [
       /^(min-w|max-w|min-h|max-h)-(\d+)(px|%|rem|em|vh|vw)$/,

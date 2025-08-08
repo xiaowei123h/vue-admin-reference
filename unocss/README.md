@@ -23,3 +23,5 @@
 **el-card样式修改，加圆角和阴影** card-w
 
 **cursor': 'pointer** cursor-p
+
+**font-weight** f-w = font-weight: bole f-w-4 = font-weight:400
