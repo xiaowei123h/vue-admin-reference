@@ -1,15 +1,16 @@
 <script lang="ts" setup>
 import { solarTerms, solarTermsName, type SolarTerms } from '@/common/solarTerms.ts'
-
-// console.log(solarTerms[1990])
+import { NumerologyDatabase, type NumerologyData } from '@/common/Numerology-database'
 
 
 // 生辰八字
 const dateStr = ref('')
 // 天干数组
 const heavenlyStems = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
+                    // 0     1     2     3     4     5     6     7    8     9  
 // 地支数组
 const earthlyBranches = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
+//                        0     1     2     3    4     5     6     7     8    9     10    11
 // 天干对应五行
 const heavenlyStemsFive = ['阳木', '阴木', '阳火', '阴火', '阳土', '阴土', '阳金', '阴金', '阳水', '阴水']
 // 地支对应五行
@@ -18,6 +19,7 @@ const earthlyBranchesFive = [
   '戊土（60%）、乙木（30%）、癸水（10%）', '丙火（60%）、戊土（30%）、庚金（10%）', '丁火（70%）、己土（30%）',
   '己土（60%）、丁火（30%）、乙木（10%）', '庚金（60%）、壬水（30%）、戊土（10%）', '辛金（100%）',
   '戊土（60%）、辛金（30%）、丁火（10%）', '壬水（70%）、甲木（30%）']
+
 // 四柱索引：年干、年支、月干、月支、日干、日支、时干、时支
 let adjustedStemIndex: number;
 let adjustedBranchIndex: number;
@@ -35,7 +37,12 @@ let backwardSequence: string[];
 // 起运年龄，顺逆
 let forwardAge: number;
 let backwardAge: number;
+// 十神
+let tenGods: any[];
+// 查库
+let database: NumerologyData | null;
 
+// 选择四柱相关参数
 const adjustedStemIndexValue = ref(0)
 const adjustedBranchIndexValue = ref(0)
 const mounthStemIndexValue= ref(0)
@@ -47,6 +54,9 @@ const hourBranchIndexValue = ref(0)
 let forwardSequenceOptions = ref<string[]>([]);
 let backwardSequenceOptions = ref<string[]>([]);
 let raftingShow = ref(false)
+let tenGodsOptions = ref<any[]>([]);
+let tenGodsShow = ref(false)
+let databaseOptions = ref<NumerologyData | null>(null)
 
 const earthlyBranchesOptions = [
   { value: 0, label: '子', },
@@ -128,6 +138,21 @@ function calculation() {
   backwardAge = calculateStartingAge(dateStr.value, solarTerms).backwardAge
   forwardAge = calculateStartingAge(dateStr.value, solarTerms).forwardAge
   // console.log(calculateStartingAge(dateStr.value, solarTerms))
+
+  // 十神
+  tenGods = calculateTenGods([adjustedStemIndex, adjustedBranchIndex, mounthStemIndex, mounthBranchIndex, dayStemIndex, dayBranchIndex, hourStemIndex, hourBranchIndex])
+  // console.log(tenGods)
+
+  // 查询八字数据库
+  const indices = adjustedStemIndex + ',' + adjustedBranchIndex + ',' + mounthStemIndex + ',' + mounthBranchIndex + ',' + dayStemIndex + ',' + dayBranchIndex + ',' + hourStemIndex + ',' + hourBranchIndex
+  // console.log(findNumerologyData(indices))
+  database = findNumerologyData(indices)
+}
+
+// 下拉选八字查库
+function searchDatabase() {
+  const indicesOptions = adjustedStemIndexValue.value + ',' + adjustedBranchIndexValue.value + ',' + mounthStemIndexValue.value + ',' + mounthBranchIndexValue.value + ',' + dayStemIndexValue.value + ',' + dayBranchIndexValue.value + ',' + hourStemIndexValue.value + ',' + hourBranchIndexValue.value
+  databaseOptions.value = findNumerologyData(indicesOptions)
 }
 
 // 给下拉选八字排运
@@ -135,6 +160,15 @@ function rafting() {
   forwardSequenceOptions.value = calculateStemsBranches(mounthStemIndexValue.value, mounthBranchIndexValue.value).forwardSequence
   backwardSequenceOptions.value = calculateStemsBranches(mounthStemIndexValue.value, mounthBranchIndexValue.value).backwardSequence
   raftingShow.value = true
+}
+
+// 给下拉选八字添加十神
+function tenGodsAdd() {
+  tenGodsOptions.value = 
+  calculateTenGods([adjustedStemIndexValue.value, adjustedBranchIndexValue.value, mounthStemIndexValue.value, mounthBranchIndexValue.value,
+  dayStemIndexValue.value, dayBranchIndexValue.value, hourStemIndexValue.value, hourBranchIndexValue.value])
+  tenGodsShow.value = true
+  // console.log(tenGodsOptions.value)
 }
 
 // 清空
@@ -409,6 +443,74 @@ function calculateStemsBranches(monthStemIndex: number, monthBranchIndex: number
 }
 
 /**
+ * 根据修正的阴阳规则计算十神
+ * 规则：
+ * - 财官印：阴阳不同为正星，阴阳相同为偏星
+ * - 食神比肩：阴阳相同
+ * - 伤官劫财：阴阳不同
+ * @param {Array} indices 四柱索引数组，顺序为[年干,年支,月干,月支,日干,日支,时干,时支]
+ * @returns {Object} 十神对象，键为位置索引，值为十神名称
+ */
+function calculateTenGods(indices: any[]) {
+  // 天干五行映射：0-木, 1-火, 2-土, 3-金, 4-水
+  const stemElements = [0, 0, 1, 1, 2, 2, 3, 3, 4, 4];
+  // 天干阴阳映射：0-阳, 1-阴（甲阳、乙阴、丙阳、丁阴...）
+  const stemYinYang = [0, 1, 0, 1, 0, 1, 0, 1, 0, 1];
+  // 地支对应本气天干索引映射（取本气作为代表）
+  const branchToStem = [9, 5, 0, 1, 4, 2, 3, 5, 6, 7, 4, 8];
+  
+  // 获取日干核心信息（我）
+  const dayStemIdx = indices[4]; // 日干索引
+  const myElement = stemElements[dayStemIdx]; // 日干五行
+  const myYinYang = stemYinYang[dayStemIdx]; // 日干阴阳（0阳1阴）
+  
+  // 需要计算的位置：年干(0)、年支(1)、月干(2)、月支(3)、日支(5)、时干(6)、时支(7)
+  const positions = [0, 1, 2, 3, 5, 6, 7];
+  const result = [];
+  
+  for (const pos of positions) {
+    // 确定目标天干（地支取本气天干）
+    let targetStemIdx;
+    if ([0, 2, 6].includes(pos)) {
+      // 天干位置（年干、月干、时干）
+      targetStemIdx = indices[pos];
+    } else {
+      // 地支位置（年支、月支、日支、时支）
+      const branchIdx = indices[pos];
+      targetStemIdx = branchToStem[branchIdx];
+    }
+    
+    // 目标天干属性
+    const targetElement = stemElements[targetStemIdx];
+    const targetYinYang = stemYinYang[targetStemIdx];
+    const isSameYinYang = myYinYang === targetYinYang; // 阴阳是否相同
+    
+    // 十神判断逻辑（严格按照用户指定规则）
+    let tenGod;
+    if (myElement === targetElement) {
+      // 同五行：比肩（同阴阳）、劫财（异阴阳）
+      tenGod = isSameYinYang ? "比肩" : "劫财";
+    } else if ((myElement + 1) % 5 === targetElement) {
+      // 我生（我五行生目标五行）：食神（同阴阳）、伤官（异阴阳）
+      tenGod = isSameYinYang ? "食神" : "伤官";
+    } else if ((myElement + 2) % 5 === targetElement) {
+      // 我克（我五行克目标五行）：正财（异阴阳）、偏财（同阴阳）
+      tenGod = !isSameYinYang ? "正财" : "偏财";
+    } else if ((myElement + 3) % 5 === targetElement) {
+      // 克我（目标五行克我五行）：正官（异阴阳）、七杀（同阴阳）
+      tenGod = !isSameYinYang ? "正官" : "七杀";
+    } else if ((myElement + 4) % 5 === targetElement) {
+      // 生我（目标五行生我五行）：正印（异阴阳）、偏印（同阴阳）
+      tenGod = !isSameYinYang ? "正印" : "偏印";
+    }
+    // @ts-ignore
+    result.push(tenGod);
+  }
+  
+  return result;
+}
+
+/**
  * 计算起运年龄（精确到年）
  * @param {string} birthDate 出生日期时间，格式：YYYY-MM-DD HH:mm:ss
  * @param {Object} solarTerms 节气数据，格式：{年份: [节气日期时间数组]}
@@ -480,6 +582,23 @@ function calculateAgeInYears(days: number) {
   // 余1舍去，余2进1
   return remainder >= 2 ? years + 1 : years;
 }
+
+/**
+ * 查询匹配的八字数据
+ * @param {string} indices - 四柱索引字符串，如 "6,8,8,6,7,9,9,5"
+ * @returns {object|null} 返回匹配的八字对象，未找到返回null
+ */
+function findNumerologyData(indices: string): NumerologyData | null {
+  // 去除空格并统一格式
+  const formattedIndices = indices.replace(/\s/g, '');
+  
+  // 在数据库中查找匹配项
+  const matchedData = NumerologyDatabase.find(item => 
+    item.indexString.replace(/\s/g, '') === formattedIndices
+  );
+  
+  return matchedData || null;
+}
 </script>
 
 <template>
@@ -493,34 +612,43 @@ function calculateAgeInYears(days: number) {
         date-format="MMM DD, YYYY"
         time-format="HH:mm"
         value-format="YYYY-MM-DD HH:mm"
+        style="width: 280px;margin-right: 10px;"
       />
-      <el-button type="primary" class="m-l-10" @click="calculation" :disabled="dateStr == ''">测算</el-button>
-      <el-button type="danger" class="m-l-10" @click="clear">清空</el-button>
+      <el-button class="margin-top" type="primary" @click="calculation" :disabled="dateStr == ''">测算</el-button>
+      <el-button type="danger" class="m-l-10 margin-top" @click="clear">清空</el-button>
       <div class="m-t-15" v-if="show">
         <h3>测算八字：</h3>
         <div class="p-10-0">
-          {{ heavenlyStems[adjustedStemIndex] }} &nbsp;&nbsp; {{ earthlyBranches[adjustedBranchIndex] }}
-          <span class="m-l-40">
+          ({{ tenGods[0] }}){{ heavenlyStems[adjustedStemIndex] }} &nbsp;&nbsp; {{ earthlyBranches[adjustedBranchIndex] }}({{ tenGods[1] }})&nbsp;&nbsp;
+          <span>
             {{ heavenlyStemsFive[adjustedStemIndex] }} &nbsp;&nbsp; {{ earthlyBranchesFive[adjustedBranchIndex] }}
           </span>
         </div>
         <div class="p-10-0">
-          {{ heavenlyStems[mounthStemIndex] }} &nbsp;&nbsp; {{ earthlyBranches[mounthBranchIndex] }}
-          <span class="m-l-40">
+          ({{ tenGods[2] }}){{ heavenlyStems[mounthStemIndex] }} &nbsp;&nbsp; {{ earthlyBranches[mounthBranchIndex] }}({{ tenGods[3] }})&nbsp;&nbsp;
+          <span>
             {{ heavenlyStemsFive[mounthStemIndex] }} &nbsp;&nbsp; {{ earthlyBranchesFive[mounthBranchIndex] }}
           </span>
         </div>
         <div class="p-10-0">
-          {{ heavenlyStems[dayStemIndex] }} &nbsp;&nbsp; {{ earthlyBranches[dayBranchIndex] }}
-          <span class="m-l-40">
+          (日主){{ heavenlyStems[dayStemIndex] }} &nbsp;&nbsp; {{ earthlyBranches[dayBranchIndex] }}({{ tenGods[4] }})&nbsp;&nbsp;
+          <span>
             {{ heavenlyStemsFive[dayStemIndex] }} &nbsp;&nbsp; {{ earthlyBranchesFive[dayBranchIndex] }}
           </span>
         </div>
         <div class="p-10-0">
-          {{ heavenlyStems[hourStemIndex] }} &nbsp;&nbsp; {{ earthlyBranches[hourBranchIndex] }}
-          <span class="m-l-40">
+          ({{ tenGods[5] }}){{ heavenlyStems[hourStemIndex] }} &nbsp;&nbsp; {{ earthlyBranches[hourBranchIndex] }}({{ tenGods[6] }})&nbsp;&nbsp;
+          <span>
             {{ heavenlyStemsFive[hourStemIndex] }} &nbsp;&nbsp; {{ earthlyBranchesFive[hourBranchIndex] }}
           </span>
+        </div>
+        <div class="p-10-0" v-if="database">
+          <div>
+            推算：{{ database.narrate }}
+          </div>
+          <div class="p-10-0">
+            结果：{{ database.content }}
+          </div>
         </div>
         <h3>顺 {{ forwardAge }}</h3>
         <div class="m-t-10" v-for="(item, index) in forwardSequence" :key="index">
@@ -534,10 +662,10 @@ function calculateAgeInYears(days: number) {
       <div class="m-t-20">
         <h3>选择八字：</h3>
         <div class="p-10-0">
-          <el-select
+          <span v-if="tenGodsShow">({{ tenGodsOptions[0] }})</span><el-select
             v-model="adjustedStemIndexValue"
             placeholder="Select"
-            style="width: 100px"
+            style="width: 140px"
           >
             <el-option
               v-for="item in heavenlyStemsOptions"
@@ -549,8 +677,8 @@ function calculateAgeInYears(days: number) {
           <el-select
             v-model="adjustedBranchIndexValue"
             placeholder="Select"
-            style="width: 100px"
-            class="m-l-20"
+            style="width: 140px"
+            class="m-0-20"
           >
             <el-option
               v-for="item in earthlyBranchesOptions"
@@ -558,16 +686,16 @@ function calculateAgeInYears(days: number) {
               :label="item.label"
               :value="item.value"
             />
-          </el-select>
-          <span class="m-l-40">
+          </el-select><span v-if="tenGodsShow">({{ tenGodsOptions[1] }})</span>&nbsp;&nbsp;
+          <span class="padding-top">
             {{ heavenlyStemsFive[adjustedStemIndexValue] }} &nbsp;&nbsp; {{ earthlyBranchesFive[adjustedBranchIndexValue] }}
           </span>
         </div>
         <div class="p-10-0">
-          <el-select
+          <span v-if="tenGodsShow">({{ tenGodsOptions[2] }})</span><el-select
             v-model="mounthStemIndexValue"
             placeholder="Select"
-            style="width: 100px"
+            style="width: 140px"
           >
             <el-option
               v-for="item in heavenlyStemsOptions"
@@ -579,8 +707,8 @@ function calculateAgeInYears(days: number) {
           <el-select
             v-model="mounthBranchIndexValue"
             placeholder="Select"
-            style="width: 100px"
-            class="m-l-20"
+            style="width: 140px"
+            class="m-0-20"
           >
             <el-option
               v-for="item in earthlyBranchesOptions"
@@ -588,16 +716,16 @@ function calculateAgeInYears(days: number) {
               :label="item.label"
               :value="item.value"
             />
-          </el-select>
-          <span class="m-l-40">
+          </el-select><span v-show="tenGodsShow">({{ tenGodsOptions[3] }})</span>&nbsp;&nbsp;
+          <span class="padding-top">
             {{ heavenlyStemsFive[mounthStemIndexValue] }} &nbsp;&nbsp; {{ earthlyBranchesFive[mounthBranchIndexValue] }}
           </span>
         </div>
         <div class="p-10-0">
-          <el-select
+          <span v-if="tenGodsShow">(日主)</span><el-select
             v-model="dayStemIndexValue"
             placeholder="Select"
-            style="width: 100px"
+            style="width: 140px"
           >
             <el-option
               v-for="item in heavenlyStemsOptions"
@@ -609,8 +737,8 @@ function calculateAgeInYears(days: number) {
           <el-select
             v-model="dayBranchIndexValue"
             placeholder="Select"
-            style="width: 100px"
-            class="m-l-20"
+            style="width: 140px"
+            class="m-0-20"
           >
             <el-option
               v-for="item in earthlyBranchesOptions"
@@ -618,16 +746,16 @@ function calculateAgeInYears(days: number) {
               :label="item.label"
               :value="item.value"
             />
-          </el-select>
-          <span class="m-l-40">
+          </el-select><span v-if="tenGodsShow">({{ tenGodsOptions[4] }})</span>&nbsp;&nbsp;
+          <span class="padding-top">
             {{ heavenlyStemsFive[dayStemIndexValue] }} &nbsp;&nbsp; {{ earthlyBranchesFive[dayBranchIndexValue] }}
           </span>
         </div>
         <div class="p-10-0">
-          <el-select
+          <span v-if="tenGodsShow">({{ tenGodsOptions[5] }})</span><el-select
             v-model="hourStemIndexValue"
             placeholder="Select"
-            style="width: 100px"
+            style="width: 140px"
           >
             <el-option
               v-for="item in heavenlyStemsOptions"
@@ -639,8 +767,8 @@ function calculateAgeInYears(days: number) {
           <el-select
             v-model="hourBranchIndexValue"
             placeholder="Select"
-            style="width: 100px"
-            class="m-l-20"
+            style="width: 140px"
+            class="m-0-20"
           >
             <el-option
               v-for="item in earthlyBranchesOptions"
@@ -648,12 +776,22 @@ function calculateAgeInYears(days: number) {
               :label="item.label"
               :value="item.value"
             />
-          </el-select>
-          <span class="m-l-40">
+          </el-select><span v-if="tenGodsShow">({{ tenGodsOptions[6] }})</span>&nbsp;&nbsp;
+          <span class="padding-top">
             {{ heavenlyStemsFive[hourStemIndexValue] }} &nbsp;&nbsp; {{ earthlyBranchesFive[hourBranchIndexValue] }}
           </span>
         </div>
         <el-button type="primary" class="m-t-10" @click="rafting">排运</el-button>
+        <el-button type="primary" class="m-t-10" @click="tenGodsAdd">十神</el-button>
+        <el-button type="primary" class="m-t-10" @click="searchDatabase">查库</el-button>
+        <div class="p-10-0" v-if="databaseOptions">
+          <div>
+            推算：{{ databaseOptions.narrate }}
+          </div>
+          <div class="p-10-0">
+            结果：{{ databaseOptions.content }}
+          </div>
+        </div>
         <div v-if="raftingShow">
           <h3>顺</h3>
           <div class="m-t-10" v-for="(item, index) in forwardSequenceOptions" :key="index">
@@ -668,3 +806,16 @@ function calculateAgeInYears(days: number) {
     </el-card>
   </div>
 </template>
+
+<style scoped>
+/* 移动端样式（通常指屏幕宽度小于768px） */
+@media (max-width: 767px) {
+  .margin-top {
+    margin-top: 10px;
+  }
+  .padding-top {
+    display: inline-block;
+    padding-top: 10px;
+  }
+}
+</style>
