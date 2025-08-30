@@ -59,31 +59,31 @@ let tenGodsShow = ref(false)
 let databaseOptions = ref<NumerologyData | null>(null)
 
 const earthlyBranchesOptions = [
-  { value: 0, label: '子', },
-  { value: 1, label: '丑', },
-  { value: 2, label: '寅', },
-  { value: 3, label: '卯', },
-  { value: 4, label: '辰', },
-  { value: 5, label: '巳', },
-  { value: 6, label: '午', },
-  { value: 7, label: '未', },
-  { value: 8, label: '申', },
-  { value: 9, label: '酉', },
-  { value: 10, label: '戌', },
-  { value: 11, label: '亥', },
+  { value: 0, label: '子0', },
+  { value: 1, label: '丑1', },
+  { value: 2, label: '寅2', },
+  { value: 3, label: '卯3', },
+  { value: 4, label: '辰4', },
+  { value: 5, label: '巳5', },
+  { value: 6, label: '午6', },
+  { value: 7, label: '未7', },
+  { value: 8, label: '申8', },
+  { value: 9, label: '酉9', },
+  { value: 10, label: '戌10', },
+  { value: 11, label: '亥11', },
 ]
 
 const heavenlyStemsOptions = [
-  { value: 0, label: '甲' },
-  { value: 1, label: '乙' },
-  { value: 2, label: '丙' },
-  { value: 3, label: '丁' },
-  { value: 4, label: '戊' },
-  { value: 5, label: '己' },
-  { value: 6, label: '庚' },
-  { value: 7, label: '辛' },
-  { value: 8, label: '壬' },
-  { value: 9, label: '癸' }
+  { value: 0, label: '甲0' },
+  { value: 1, label: '乙1' },
+  { value: 2, label: '丙2' },
+  { value: 3, label: '丁3' },
+  { value: 4, label: '戊4' },
+  { value: 5, label: '己5' },
+  { value: 6, label: '庚6' },
+  { value: 7, label: '辛7' },
+  { value: 8, label: '壬8' },
+  { value: 9, label: '癸9' }
 ]
 
 // 测算
@@ -650,22 +650,30 @@ function findNumerologyData(indices: string): NumerologyData | null {
             结果：{{ database.content }}
           </div>
         </div>
-        <h3>顺 {{ forwardAge }}</h3>
-        <div class="m-t-10" v-for="(item, index) in forwardSequence" :key="index">
-          {{ item }}
-        </div>
-        <h3>逆 {{ backwardAge }}</h3>
-        <div class="m-t-10" v-for="(item, index) in backwardSequence" :key="index">
-          {{ item }}
+        <div class="flex">
+          <div class="m-r-40">
+            <h3>顺 {{ forwardAge }}</h3>
+            <div class="m-t-10" v-for="(item, index) in forwardSequence" :key="index">
+              {{ item }}
+            </div>
+          </div>
+          <div>
+            <h3>逆 {{ backwardAge }}</h3>
+            <div class="m-t-10" v-for="(item, index) in backwardSequence" :key="index">
+              {{ item }}
+            </div>
+          </div>
         </div>
       </div>
       <div class="m-t-20">
         <h3>选择八字：</h3>
         <div class="p-10-0">
-          <span v-if="tenGodsShow">({{ tenGodsOptions[0] }})</span><el-select
+          <span v-if="tenGodsShow">({{ tenGodsOptions[0] }})</span>
+          <el-select
             v-model="adjustedStemIndexValue"
             placeholder="Select"
             style="width: 140px"
+            popper-class="custom-select"
           >
             <el-option
               v-for="item in heavenlyStemsOptions"
@@ -679,6 +687,7 @@ function findNumerologyData(indices: string): NumerologyData | null {
             placeholder="Select"
             style="width: 140px"
             class="m-0-20"
+            popper-class="custom-select"
           >
             <el-option
               v-for="item in earthlyBranchesOptions"
@@ -692,10 +701,12 @@ function findNumerologyData(indices: string): NumerologyData | null {
           </span>
         </div>
         <div class="p-10-0">
-          <span v-if="tenGodsShow">({{ tenGodsOptions[2] }})</span><el-select
+          <span v-if="tenGodsShow">({{ tenGodsOptions[2] }})</span>
+          <el-select
             v-model="mounthStemIndexValue"
             placeholder="Select"
             style="width: 140px"
+            popper-class="custom-select"
           >
             <el-option
               v-for="item in heavenlyStemsOptions"
@@ -709,6 +720,7 @@ function findNumerologyData(indices: string): NumerologyData | null {
             placeholder="Select"
             style="width: 140px"
             class="m-0-20"
+            popper-class="custom-select"
           >
             <el-option
               v-for="item in earthlyBranchesOptions"
@@ -722,10 +734,12 @@ function findNumerologyData(indices: string): NumerologyData | null {
           </span>
         </div>
         <div class="p-10-0">
-          <span v-if="tenGodsShow">(日主)</span><el-select
+          <span v-if="tenGodsShow">(日主)</span>
+          <el-select
             v-model="dayStemIndexValue"
             placeholder="Select"
             style="width: 140px"
+            popper-class="custom-select"
           >
             <el-option
               v-for="item in heavenlyStemsOptions"
@@ -739,6 +753,7 @@ function findNumerologyData(indices: string): NumerologyData | null {
             placeholder="Select"
             style="width: 140px"
             class="m-0-20"
+            popper-class="custom-select"
           >
             <el-option
               v-for="item in earthlyBranchesOptions"
@@ -752,10 +767,12 @@ function findNumerologyData(indices: string): NumerologyData | null {
           </span>
         </div>
         <div class="p-10-0">
-          <span v-if="tenGodsShow">({{ tenGodsOptions[5] }})</span><el-select
+          <span v-if="tenGodsShow">({{ tenGodsOptions[5] }})</span>
+          <el-select
             v-model="hourStemIndexValue"
             placeholder="Select"
             style="width: 140px"
+            popper-class="custom-select"
           >
             <el-option
               v-for="item in heavenlyStemsOptions"
@@ -769,6 +786,7 @@ function findNumerologyData(indices: string): NumerologyData | null {
             placeholder="Select"
             style="width: 140px"
             class="m-0-20"
+            popper-class="custom-select"
           >
             <el-option
               v-for="item in earthlyBranchesOptions"
@@ -793,13 +811,19 @@ function findNumerologyData(indices: string): NumerologyData | null {
           </div>
         </div>
         <div v-if="raftingShow">
-          <h3>顺</h3>
-          <div class="m-t-10" v-for="(item, index) in forwardSequenceOptions" :key="index">
-            {{ item }}
-          </div>
-          <h3>逆</h3>
-          <div class="m-t-10" v-for="(item, index) in backwardSequenceOptions" :key="index">
-            {{ item }}
+          <div class="flex">
+            <div class="m-r-40">
+              <h3>顺</h3>
+              <div class="m-t-10" v-for="(item, index) in forwardSequenceOptions" :key="index">
+                {{ item }}
+              </div>
+            </div>
+            <div>
+              <h3>逆</h3>
+              <div class="m-t-10" v-for="(item, index) in backwardSequenceOptions" :key="index">
+                {{ item }}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -817,5 +841,15 @@ function findNumerologyData(indices: string): NumerologyData | null {
     display: inline-block;
     padding-top: 10px;
   }
+}
+</style>
+
+<style>
+.custom-select .el-scrollbar .el-select-dropdown__wrap {
+  max-height: none !important;
+  overflow-y: auto !important;
+}
+.custom-select.el-select-dropdown {
+  max-height: none !important;
 }
 </style>
