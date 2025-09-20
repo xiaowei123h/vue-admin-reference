@@ -59,31 +59,31 @@ let tenGodsShow = ref(false)
 let databaseOptions = ref<NumerologyData | null>(null)
 
 const earthlyBranchesOptions = [
-  { value: 0, label: '子0', },
-  { value: 1, label: '丑1', },
-  { value: 2, label: '寅2', },
-  { value: 3, label: '卯3', },
-  { value: 4, label: '辰4', },
-  { value: 5, label: '巳5', },
-  { value: 6, label: '午6', },
-  { value: 7, label: '未7', },
-  { value: 8, label: '申8', },
-  { value: 9, label: '酉9', },
-  { value: 10, label: '戌10', },
-  { value: 11, label: '亥11', },
+  { value: 0, label: '子', },
+  { value: 1, label: '丑', },
+  { value: 2, label: '寅', },
+  { value: 3, label: '卯', },
+  { value: 4, label: '辰', },
+  { value: 5, label: '巳', },
+  { value: 6, label: '午', },
+  { value: 7, label: '未', },
+  { value: 8, label: '申', },
+  { value: 9, label: '酉', },
+  { value: 10, label: '戌', },
+  { value: 11, label: '亥', },
 ]
 
 const heavenlyStemsOptions = [
-  { value: 0, label: '甲0' },
-  { value: 1, label: '乙1' },
-  { value: 2, label: '丙2' },
-  { value: 3, label: '丁3' },
-  { value: 4, label: '戊4' },
-  { value: 5, label: '己5' },
-  { value: 6, label: '庚6' },
-  { value: 7, label: '辛7' },
-  { value: 8, label: '壬8' },
-  { value: 9, label: '癸9' }
+  { value: 0, label: '甲' },
+  { value: 1, label: '乙' },
+  { value: 2, label: '丙' },
+  { value: 3, label: '丁' },
+  { value: 4, label: '戊' },
+  { value: 5, label: '己' },
+  { value: 6, label: '庚' },
+  { value: 7, label: '辛' },
+  { value: 8, label: '壬' },
+  { value: 9, label: '癸' }
 ]
 
 // 测算
@@ -604,6 +604,13 @@ function findNumerologyData(indices: string): NumerologyData | null {
 <template>
   <div class="p-16">
     <el-card header="八字测算" class="card-w">
+      <div class="p-b-10">
+        冲:子午、丑未、寅申、卯酉、辰戌、巳亥、甲庚、乙辛、壬丙、癸丁、寅巳申、丑未戌、子卯、子未、丑午、寅巳、卯辰、申亥、酉戌
+      </div>
+      <div class="p-10-0 w-1000px">
+        合：子丑（土）、寅亥（木）、卯戌（火）、辰酉（金）、巳申（水）、午未（土）、申子辰（水）、亥卯未（木）、寅午戌（火）、巳酉丑（金）、寅卯辰（木）、巳午未（火）、申酉戌（金）、亥子丑（水）、
+        甲己（土）、乙庚（金）、丙辛（水）、丁壬（木）、戊癸（火）
+      </div>
       <el-date-picker
         v-model="dateStr"
         type="datetime"
@@ -802,6 +809,9 @@ function findNumerologyData(indices: string): NumerologyData | null {
         <el-button type="primary" class="m-t-10" @click="rafting">排运</el-button>
         <el-button type="primary" class="m-t-10" @click="tenGodsAdd">十神</el-button>
         <el-button type="primary" class="m-t-10" @click="searchDatabase">查库</el-button>
+        <div class="p-10-0">
+          {{ adjustedStemIndexValue }},{{ adjustedBranchIndexValue }},{{ mounthStemIndexValue }},{{ mounthBranchIndexValue }},{{ dayStemIndexValue }},{{ dayBranchIndexValue }},{{ hourStemIndexValue }},{{ hourBranchIndexValue }}
+        </div>
         <div class="p-10-0" v-if="databaseOptions">
           <div>
             推算：{{ databaseOptions.narrate }}
